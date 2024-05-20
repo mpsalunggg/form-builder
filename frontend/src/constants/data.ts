@@ -1,6 +1,6 @@
 import { ListTaskType } from '../types'
 
-export const DataTaskList: ListTaskType[] = [
+export const ExampleDataTaskList: ListTaskType[] = [
   {
     id: 1,
     title: 'Eat',

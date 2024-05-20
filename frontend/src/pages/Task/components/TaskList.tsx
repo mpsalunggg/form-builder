@@ -3,7 +3,7 @@ import { useBoolean } from '@fluentui/react-hooks'
 import { Delete12Filled, Edit12Filled } from '@fluentui/react-icons'
 import { useCallback, useState } from 'react'
 import TaskModal from '../../../components/TaskModal'
-import { DataTaskList } from '../../../constants/data'
+import { ExampleDataTaskList } from '../../../constants/data'
 import { ListTaskType } from '../../../types'
 import ModalBody from './ModalBody'
 import ModalDelete from './ModalDelete'
@@ -72,7 +72,7 @@ const TaskList = () => {
 
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
-      <List items={DataTaskList} onRenderCell={onRenderCell} />
+      <List items={ExampleDataTaskList} onRenderCell={onRenderCell} />
       {onRenderModal()}
     </FocusZone>
   )
