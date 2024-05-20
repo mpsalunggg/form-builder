@@ -2,13 +2,21 @@ import { DefaultButton } from '@fluentui/react'
 import { FC } from 'react'
 import { ButtonProps } from '../../types'
 
-const Button: FC<ButtonProps> = ({ text, href = '', className, ...props }) => {
+const Button: FC<ButtonProps> = ({
+  text,
+  href = '',
+  startIcon,
+  className,
+  ...props
+}) => {
   return (
     <DefaultButton
       href={href}
-      className={`bg-blue-400 border-0 text-white hover:bg-blue-500 hover:text-white rounded-md ${className}`}
+      className={`border-0 p-0 rounded-md ${className}`}
+      style={{maxWidth: 12}}
       {...props}
     >
+      {startIcon}
       {text}
     </DefaultButton>
   )

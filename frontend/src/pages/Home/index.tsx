@@ -9,7 +9,7 @@ const Home: FC = () => {
       <Stack.Item className={`bg-blue-400 h-1/2`}>
         <div className="flex items-end justify-center backdrop-blur-sm w-full h-full pb-4 ">
           <div className="flex items-center">
-            <h1 className="text-white lg:text-5xl text-2xl font-poppins font-semibold drop-shadow-lg text-center">
+            <h1 className="text-white lg:text-5xl text-3xl font-poppins font-semibold drop-shadow-lg text-center">
               Task Management App
             </h1>
           </div>
@@ -29,7 +29,8 @@ const Home: FC = () => {
           company
         </p>
         <Button
-          className="bg-blue-400 border-0 text-white hover:bg-blue-300 hover:text-white rounded-md"
+          href="/task"
+          className="bg-blue-400 text-white hover:bg-blue-300 hover:text-white rounded-md"
           text="Let's Started"
         />
       </Stack.Item>
