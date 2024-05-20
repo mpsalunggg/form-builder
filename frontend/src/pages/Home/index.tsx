@@ -25,7 +25,8 @@ const Home: FC = () => {
             target="_blank"
           >
             Kitameraki
-          </Link>
+          </Link>{' '}
+          company
         </p>
         <Button
           className="bg-blue-400 border-0 text-white hover:bg-blue-300 hover:text-white rounded-md"
