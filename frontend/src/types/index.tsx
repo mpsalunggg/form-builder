@@ -19,3 +19,8 @@ export interface ListTaskType {
   title: string
   description: string
 }
+
+export interface ModalBodyProps {
+  buttonText?: string
+  data?: ListTaskType
+}
