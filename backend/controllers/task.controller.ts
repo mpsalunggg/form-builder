@@ -1,9 +1,9 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { ResponseMeta } from '../helpers/meta'
 import { ResponseApi } from '../helpers/response'
 import { getAllTasks } from '../services/task.service'
 
-export const getTasks = (req: Request, res: Response) => {
+export const getTasks = (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = Number(req.query.page as string) || 1
     const pageSize = Number(req.query.pageSize as string) || 10
@@ -16,7 +16,6 @@ export const getTasks = (req: Request, res: Response) => {
       })
     )
   } catch (error) {
-    console.log(error)
-    res.json(error)
+    next(error)
   }
 }
