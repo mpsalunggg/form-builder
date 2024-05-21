@@ -27,7 +27,6 @@ export const getTasks = (req: Request, res: Response, next: NextFunction) => {
 export const createTask = (req: Request, res: Response, next: NextFunction) => {
   try {
     const { title, description } = req.body
-    console.log({ title, description })
     const newTask = createTaskService(title, description)
     res.status(201).json(ResponseApi(201, 'Task created!', newTask))
   } catch (error) {
