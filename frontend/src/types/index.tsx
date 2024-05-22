@@ -24,3 +24,21 @@ export interface ModalBodyProps {
   buttonText?: string
   data?: ListTaskType
 }
+
+export interface BaseResponseType<T> {
+  code: number
+  message: string
+  data?: T
+}
+
+export interface MetaType {
+  total: number
+  page: number
+  pageSize: number
+  limit: number
+}
+
+export interface AllTasksType {
+  tasks: ListTaskType[]
+  meta: MetaType
+}

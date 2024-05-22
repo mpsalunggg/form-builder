@@ -10,7 +10,10 @@ export const useTesting = () => {
 
 export const useGetAllTasks = () => {
   return useQuery({
-    queryKey: ['tasksService.testing'],
-    queryFn: async () => await AuthService.getAllTasks(),
+    queryKey: ['tasksService.getAllTasks'],
+    queryFn: async () => {
+      const response = await AuthService.getAllTasks()
+      return response
+    },
   })
 }

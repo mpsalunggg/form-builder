@@ -76,7 +76,9 @@ const TaskList = () => {
   if (isLoading) {
     return <Loading />
   }
-
+  if (!dataTasks?.data) {
+    return <p>{dataTasks?.message}</p>
+  }
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <List items={dataTasks?.data?.tasks} onRenderCell={onRenderCell} />

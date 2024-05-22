@@ -4,7 +4,6 @@ import { Add16Filled } from '@fluentui/react-icons'
 import { FC } from 'react'
 import Button from '../../components/Button'
 import TaskModal from '../../components/TaskModal'
-import { BASE_URL } from '../../constants/config'
 import ModalBody from './components/ModalBody'
 import TaskList from './components/TaskList'
 import { useTesting } from './hooks'
@@ -15,7 +14,6 @@ const Task: FC = () => {
 
   const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
     useBoolean(false)
-  console.log('Test', BASE_URL)
   return (
     <Stack>
       <Stack.Item className="bg-blue-400 w-full h-36 lg:px-96 px-4 flex items-end">
