@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Setup Backend')
+  res.json({ message: 'Success hit' })
 })
 
 app.use('/api', taskRoutes)
