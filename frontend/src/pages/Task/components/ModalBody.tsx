@@ -3,11 +3,12 @@ import { FC, useState, useEffect, useCallback } from 'react'
 import Button from '../../../components/Button'
 import useModalStore from '../../../hooks/useModalStore'
 import { ModalBodyProps } from '../../../types'
-import { useCreateTask } from '../hooks'
+import { useCreateTask, useEditTask } from '../hooks'
 
 const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit' }) => {
   const { type, data } = useModalStore()
-  const { mutate } = useCreateTask()
+  const { mutate: mutateCreate } = useCreateTask()
+  const { mutate: mutateEdit } = useEditTask()
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -42,7 +43,9 @@ const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit' }) => {
   const handleSubmit = () => {
     if (validateForm()) {
       if (type === 'CREATE') {
-        mutate({ title, description })
+        mutateCreate({ title, description })
+      } else {
+        mutateEdit({ id: data?.id, data: { title, description } })
       }
     }
   }

@@ -25,4 +25,23 @@ export const TaskService = {
       return err
     }
   },
+  editTasks: async (
+    id: number,
+    data: ListTaskType
+  ): Promise<BaseResponseType<ListTaskType>> => {
+    try {
+      const res = await fetcher.put(TASK + `/${id}`, data)
+      return res.data
+    } catch (err: any) {
+      return err
+    }
+  },
+  deleteTask: async (id: number): Promise<BaseResponseType<ListTaskType>> => {
+    try {
+      const res = await fetcher.delete(TASK + `/${id}`)
+      return res.data
+    } catch (err: any) {
+      return err
+    }
+  },
 }
