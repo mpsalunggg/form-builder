@@ -5,10 +5,13 @@ import { useCallback, useState } from 'react'
 import TaskModal from '../../../components/TaskModal'
 import { ExampleDataTaskList } from '../../../constants/data'
 import { ListTaskType } from '../../../types'
+import { useGetAllTasks } from '../hooks'
 import ModalBody from './ModalBody'
 import ModalDelete from './ModalDelete'
 
 const TaskList = () => {
+  const { data: dataTasks } = useGetAllTasks()
+  console.log(dataTasks)
   const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
     useBoolean(false)
   const [modalType, setModalType] = useState<string>('')
@@ -72,7 +75,7 @@ const TaskList = () => {
 
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
-      <List items={ExampleDataTaskList} onRenderCell={onRenderCell} />
+      <List items={dataTasks?.data?.tasks} onRenderCell={onRenderCell} />
       {onRenderModal()}
     </FocusZone>
   )

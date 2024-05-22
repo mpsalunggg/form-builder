@@ -10,8 +10,8 @@ import TaskList from './components/TaskList'
 import { useTesting } from './hooks'
 
 const Task: FC = () => {
-  const { data } = useTesting()
-  console.log('Testing', data)
+  const { data: testing } = useTesting()
+  console.log('Testing', testing)
 
   const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
     useBoolean(false)
