@@ -15,14 +15,13 @@ export interface TaskModalProps {
 }
 
 export interface ListTaskType {
-  id: number
+  id?: number
   title: string
   description: string
 }
 
 export interface ModalBodyProps {
   buttonText?: string
-  data?: ListTaskType
 }
 
 export interface BaseResponseType<T> {

@@ -1,9 +1,10 @@
 import { Stack } from '@fluentui/react'
-import { useBoolean } from '@fluentui/react-hooks'
+// import { useBoolean } from '@fluentui/react-hooks'
 import { Add16Filled } from '@fluentui/react-icons'
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import Button from '../../components/Button'
 import TaskModal from '../../components/TaskModal'
+import useModalStore from '../../hooks/useModalStore'
 import ModalBody from './components/ModalBody'
 import TaskList from './components/TaskList'
 import { useTesting } from './hooks'
@@ -12,8 +13,12 @@ const Task: FC = () => {
   const { data: testing } = useTesting()
   console.log('Testing', testing)
 
-  const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
-    useBoolean(false)
+  const openModal = useModalStore((state) => state.openModal)
+
+  const handleAddButtonClick = useCallback(() => {
+    openModal('Add New Task', <ModalBody buttonText="Add" />, 'CREATE')
+  }, [])
+
   return (
     <Stack>
       <Stack.Item className="bg-blue-400 w-full h-36 lg:px-96 px-4 flex items-end">
@@ -24,7 +29,7 @@ const Task: FC = () => {
           <Button
             className="bg-white text-blue-400 hover:text-blue-400 w-12 h-10 flex items-center justify-center"
             startIcon={<Add16Filled className="m-0 w-4 h-4" />}
-            onClick={showModal}
+            onClick={handleAddButtonClick}
             text="Add"
           />
         </div>
@@ -32,12 +37,7 @@ const Task: FC = () => {
       <Stack.Item className="lg:px-96 px-4 my-4">
         <TaskList />
       </Stack.Item>
-      <TaskModal
-        isOpen={isModalOpen}
-        onDismiss={hideModal}
-        title="Add New Task"
-        modalBody={<ModalBody buttonText="Add" />}
-      />
+      <TaskModal />
     </Stack>
   )
 }

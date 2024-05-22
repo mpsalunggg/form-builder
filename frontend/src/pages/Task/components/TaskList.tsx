@@ -1,32 +1,23 @@
 import { FocusZone, FocusZoneDirection, List, Stack } from '@fluentui/react'
-import { useBoolean } from '@fluentui/react-hooks'
 import { Delete12Filled, Edit12Filled } from '@fluentui/react-icons'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import Loading from '../../../components/Loading'
-import TaskModal from '../../../components/TaskModal'
+import useModalStore from '../../../hooks/useModalStore'
 import { ListTaskType } from '../../../types'
 import { useGetAllTasks } from '../hooks'
 import ModalBody from './ModalBody'
 import ModalDelete from './ModalDelete'
 
 const TaskList = () => {
+  const openModal = useModalStore((state) => state.openModal)
   const { data: dataTasks, isLoading } = useGetAllTasks()
 
-  const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
-    useBoolean(false)
-  const [modalType, setModalType] = useState<string>('')
-  const [selectedTask, setSelectedTask] = useState<ListTaskType | null>(null)
-
   const handleDeleteClick = (task: ListTaskType) => {
-    setSelectedTask(task)
-    setModalType('delete')
-    showModal()
+    openModal('Delete Task!', <ModalDelete />, 'DELETE', task)
   }
 
   const handleEditClick = (task: ListTaskType) => {
-    setSelectedTask(task)
-    setModalType('edit')
-    showModal()
+    openModal('Edit Task!', <ModalBody buttonText="Edit" />, 'EDIT', task)
   }
 
   const onRenderCell = useCallback((item?: ListTaskType) => {
@@ -50,29 +41,6 @@ const TaskList = () => {
     )
   }, [])
 
-  const onRenderModal = useCallback(() => {
-    if (!selectedTask) return null
-
-    const modalContent =
-      modalType === 'delete' ? (
-        <ModalDelete hideModal={hideModal} />
-      ) : (
-        <ModalBody buttonText="Edit" data={selectedTask} />
-      )
-
-    const modalTitle =
-      modalType === 'delete' ? 'Delete this task?' : 'Edit Task'
-
-    return (
-      <TaskModal
-        isOpen={isModalOpen}
-        onDismiss={hideModal}
-        title={modalTitle}
-        modalBody={modalContent}
-      />
-    )
-  }, [isModalOpen, selectedTask, modalType, hideModal])
-
   if (isLoading) {
     return <Loading />
   }
@@ -82,7 +50,6 @@ const TaskList = () => {
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <List items={dataTasks?.data?.tasks} onRenderCell={onRenderCell} />
-      {onRenderModal()}
     </FocusZone>
   )
 }

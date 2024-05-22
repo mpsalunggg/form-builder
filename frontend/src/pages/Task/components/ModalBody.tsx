@@ -1,9 +1,14 @@
 import { Stack, TextField } from '@fluentui/react'
 import { FC, useState, useEffect, useCallback } from 'react'
 import Button from '../../../components/Button'
+import useModalStore from '../../../hooks/useModalStore'
 import { ModalBodyProps } from '../../../types'
+import { useCreateTask } from '../hooks'
 
-const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit', data }) => {
+const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit' }) => {
+  const { type, data } = useModalStore()
+  const { mutate } = useCreateTask()
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [titleError, setTitleError] = useState('')
@@ -36,7 +41,9 @@ const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit', data }) => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      alert('Form is valid')
+      if (type === 'CREATE') {
+        mutate({ title, description })
+      }
     }
   }
 
