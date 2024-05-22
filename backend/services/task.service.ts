@@ -13,6 +13,9 @@ export const getAllTasksService = (
       400
     )
   }
+  if (Tasks.length === 0) {
+    throw new ApiError('Opsss, you dont have a task!', 404)
+  }
 
   const startIndex = (page - 1) * pageSize
   const endIndex = startIndex + Math.min(pageSize, limit)
