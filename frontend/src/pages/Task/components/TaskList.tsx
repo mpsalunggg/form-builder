@@ -2,16 +2,16 @@ import { FocusZone, FocusZoneDirection, List, Stack } from '@fluentui/react'
 import { useBoolean } from '@fluentui/react-hooks'
 import { Delete12Filled, Edit12Filled } from '@fluentui/react-icons'
 import { useCallback, useState } from 'react'
+import Loading from '../../../components/Loading'
 import TaskModal from '../../../components/TaskModal'
-import { ExampleDataTaskList } from '../../../constants/data'
 import { ListTaskType } from '../../../types'
 import { useGetAllTasks } from '../hooks'
 import ModalBody from './ModalBody'
 import ModalDelete from './ModalDelete'
 
 const TaskList = () => {
-  const { data: dataTasks } = useGetAllTasks()
-  console.log(dataTasks)
+  const { data: dataTasks, isLoading } = useGetAllTasks()
+
   const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
     useBoolean(false)
   const [modalType, setModalType] = useState<string>('')
@@ -72,6 +72,10 @@ const TaskList = () => {
       />
     )
   }, [isModalOpen, selectedTask, modalType, hideModal])
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
