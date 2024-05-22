@@ -1,7 +1,7 @@
 import { Stack } from '@fluentui/react'
-// import { useBoolean } from '@fluentui/react-hooks'
 import { Add16Filled } from '@fluentui/react-icons'
 import { FC, useCallback } from 'react'
+import Alert from '../../components/Alert'
 import Button from '../../components/Button'
 import TaskModal from '../../components/TaskModal'
 import useModalStore from '../../hooks/useModalStore'
@@ -33,6 +33,9 @@ const Task: FC = () => {
             text="Add"
           />
         </div>
+      </Stack.Item>
+      <Stack.Item className="relative lg:px-96 p-4 w-full">
+        <Alert />
       </Stack.Item>
       <Stack.Item className="lg:px-96 px-4 my-4">
         <TaskList />

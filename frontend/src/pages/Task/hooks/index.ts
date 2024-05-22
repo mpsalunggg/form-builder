@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
+import useAlertStore from '../../../hooks/useAlertStore'
 import useModalStore from '../../../hooks/useModalStore'
 import { TaskService } from '../../../services/Task'
 import { ListTaskType } from '../../../types'
@@ -24,13 +25,15 @@ export const useGetAllTasks = () => {
 export const useCreateTask = () => {
   const queryClient = useQueryClient()
   const { closeModal } = useModalStore()
+  const { showAlert } = useAlertStore()
   return useMutation({
     mutationFn: async (values: ListTaskType) =>
       await TaskService.createTasks(values),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['tasksService.getAllTasks'],
       })
+      showAlert(data?.message, 'success', 3000)
       closeModal()
     },
     onError: (err: AxiosError) => {
@@ -42,13 +45,15 @@ export const useCreateTask = () => {
 export const useEditTask = () => {
   const queryClient = useQueryClient()
   const { closeModal } = useModalStore()
+  const { showAlert } = useAlertStore()
   return useMutation({
     mutationFn: async ({ id, data }: { id: number; data: ListTaskType }) =>
       await TaskService.editTasks(id, data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['tasksService.getAllTasks'],
       })
+      showAlert(data?.message, 'success', 3000)
       closeModal()
     },
     onError: (err: AxiosError) => {
@@ -60,12 +65,14 @@ export const useEditTask = () => {
 export const useDeleteTask = () => {
   const queryClient = useQueryClient()
   const { closeModal } = useModalStore()
+  const { showAlert } = useAlertStore()
   return useMutation({
     mutationFn: async (id: number) => await TaskService.deleteTask(id),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['tasksService.getAllTasks'],
       })
+      showAlert(data?.message, 'success', 3000)
       closeModal()
     },
     onError: (err: AxiosError) => {
