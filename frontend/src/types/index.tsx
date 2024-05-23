@@ -48,3 +48,9 @@ export interface CardListType {
   handleEditClick: (item: ListTaskType) => void
   handleDeleteClick: (item: ListTaskType) => void
 }
+
+export interface MenuType {
+  id: number
+  title: string
+  href: string
+}

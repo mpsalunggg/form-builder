@@ -3,6 +3,7 @@ import { Add16Filled } from '@fluentui/react-icons'
 import { FC, useCallback } from 'react'
 import Alert from '../../components/Alert'
 import Button from '../../components/Button'
+import Menu from '../../components/Menu'
 import TaskModal from '../../components/TaskModal'
 import useModalStore from '../../hooks/useModalStore'
 import ModalBody from './components/ModalBody'
@@ -23,9 +24,12 @@ const Task: FC = () => {
     <Stack>
       <Stack.Item className="bg-blue-400 w-full h-36 lg:px-96 px-4 flex items-end">
         <div className="w-full flex items-center justify-between h-12 mb-4">
-          <h1 className="lg:text-3xl text-lg font-semibold text-white">
-            Manage Your Tasks Efficiently
-          </h1>
+          <div>
+            <h1 className="lg:text-3xl text-lg font-semibold text-white">
+              Manage Your Tasks Efficiently
+            </h1>
+            <Menu />
+          </div>
           <Button
             className="bg-white text-blue-400 hover:text-blue-400 w-12 h-10 flex items-center justify-center"
             startIcon={<Add16Filled className="m-0 w-4 h-4" />}
