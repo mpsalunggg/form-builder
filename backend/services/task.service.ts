@@ -4,21 +4,17 @@ import { Tasks, TaskType } from '../models/task.model'
 
 export const getAllTasksService = (
   page: number,
-  pageSize: number,
-  limit: number
+  pageSize: number
 ): { tasks: TaskType[]; total: number } => {
   if (page <= 0 || pageSize <= 0) {
-    throw new ApiError(
-      'Page and page size that must be greater than zero!',
-      400
-    )
+    throw new ApiError('Page and page size must be greater than zero!', 400)
   }
   if (Tasks.length === 0) {
     throw new ApiError('Opsss, you dont have a task!', 404)
   }
 
   const startIndex = (page - 1) * pageSize
-  const endIndex = startIndex + Math.min(pageSize, limit)
+  const endIndex = startIndex + pageSize
   const paginatedTasks = Tasks.slice(startIndex, endIndex)
 
   return { tasks: paginatedTasks, total: Tasks.length }
@@ -38,7 +34,7 @@ export const createTaskService = (
     description,
   }
 
-  Tasks.push(newTask)
+  Tasks.unshift(newTask)
   return newTask
 }
 

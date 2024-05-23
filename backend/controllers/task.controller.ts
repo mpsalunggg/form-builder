@@ -11,12 +11,11 @@ export const getTasks = (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = Number(req.query.page as string) || 1
     const pageSize = Number(req.query.pageSize as string) || 10
-    const limit = Number(req.query.limit as string) || 10
-    const { tasks, total } = getAllTasksService(page, pageSize, limit)
+    const { tasks, total } = getAllTasksService(page, pageSize)
     res.status(200).json(
       ResponseApi(200, 'Get all tasks success!', {
         tasks,
-        meta: ResponseMeta(total, page, pageSize, limit),
+        meta: ResponseMeta(total, page, pageSize),
       })
     )
   } catch (error) {
