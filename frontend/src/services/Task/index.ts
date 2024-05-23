@@ -1,5 +1,5 @@
 import { GET_ALL_TASKS, TASK, TESTING } from '../../constants/endpoint'
-import { AllTasksType, BaseResponseType, ListTaskType } from '../../types'
+import { BaseResponseType, ListTaskType } from '../../types'
 import { fetcher } from '../config'
 
 export const TaskService = {
@@ -7,10 +7,10 @@ export const TaskService = {
     const res = await fetcher(TESTING)
     return res.data
   },
-  getAllTasks: async (): Promise<BaseResponseType<AllTasksType>> => {
+  getAllTasks: async (pageSize: number): Promise<ListTaskType[]> => {
     try {
-      const res = await fetcher(GET_ALL_TASKS)
-      return res.data
+      const res = await fetcher(GET_ALL_TASKS + `?pageSize=${pageSize}`)
+      return res.data.data.tasks
     } catch (err: any) {
       return err
     }

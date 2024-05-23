@@ -1,16 +1,17 @@
-import { FocusZone, FocusZoneDirection, List, Stack } from '@fluentui/react'
-import { Delete12Filled, Edit12Filled } from '@fluentui/react-icons'
-import { useCallback } from 'react'
+import { useEffect } from 'react'
+import { FocusZone, FocusZoneDirection } from '@fluentui/react'
 import Loading from '../../../components/Loading'
 import useModalStore from '../../../hooks/useModalStore'
 import { ListTaskType } from '../../../types'
-import { useGetAllTasks } from '../hooks'
 import ModalBody from './ModalBody'
 import ModalDelete from './ModalDelete'
+import useOnScreen from '../../../hooks/useOnScreen'
+import { useGetAllTasks } from '../hooks'
+import CardList from './CardList'
 
 const TaskList = () => {
   const openModal = useModalStore((state) => state.openModal)
-  const { data: dataTasks, isLoading } = useGetAllTasks()
+  const { measureRef, isIntersecting, observer } = useOnScreen()
 
   const handleDeleteClick = (task: ListTaskType) => {
     openModal('Delete Task!', <ModalDelete />, 'DELETE', task)
@@ -20,36 +21,48 @@ const TaskList = () => {
     openModal('Edit Task!', <ModalBody buttonText="Edit" />, 'EDIT', task)
   }
 
-  const onRenderCell = useCallback((item?: ListTaskType) => {
-    return (
-      <Stack className="hover:bg-gray-200 p-4 flex-row justify-between items-center">
-        <Stack.Item>
-          <h1 className="text-blue-400 text-xl">{item?.title}</h1>
-          <div>{item?.description}</div>
-        </Stack.Item>
-        <Stack.Item>
-          <Edit12Filled
-            className="w-6 h-6 text-blue-500 cursor-pointer"
-            onClick={() => handleEditClick(item!)}
-          />
-          <Delete12Filled
-            className="w-6 h-6 text-red-500 cursor-pointer"
-            onClick={() => handleDeleteClick(item!)}
-          />
-        </Stack.Item>
-      </Stack>
-    )
-  }, [])
+  const {
+    data: dataTasks,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetAllTasks()
 
-  if (isLoading) {
-    return <Loading />
+  const newData = dataTasks?.pages[dataTasks?.pages.length - 1]
+  useEffect(() => {
+    if (isIntersecting && hasNextPage) {
+      fetchNextPage()
+      console.log('testttt')
+      observer.disconnect()
+    }
+  }, [isIntersecting, hasNextPage])
+
+  if (newData?.length === 0) {
+    return <p>No more tasks to load</p>
   }
-  if (!dataTasks?.data) {
-    return <p>{dataTasks?.message}</p>
-  }
+
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
-      <List items={dataTasks?.data?.tasks} onRenderCell={onRenderCell} />
+      {newData?.map((item: any, index: number) => {
+        if (index === newData?.length - 1) {
+          return (
+            <CardList
+              item={item}
+              measureRef={measureRef}
+              handleEditClick={handleEditClick}
+              handleDeleteClick={handleDeleteClick}
+            />
+          )
+        }
+        return (
+          <CardList
+            item={item}
+            handleEditClick={handleEditClick}
+            handleDeleteClick={handleDeleteClick}
+          />
+        )
+      })}
+      {isFetchingNextPage && <Loading />}
     </FocusZone>
   )
 }

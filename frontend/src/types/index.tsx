@@ -41,3 +41,10 @@ export interface AllTasksType {
   tasks: ListTaskType[]
   meta: MetaType
 }
+
+export interface CardListType {
+  item: ListTaskType
+  measureRef?: any
+  handleEditClick: (item: ListTaskType) => void
+  handleDeleteClick: (item: ListTaskType) => void
+}

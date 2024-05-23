@@ -1,7 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { AxiosError } from 'axios'
+// import { GET_ALL_TASKS } from '../../../constants/endpoint'
 import useAlertStore from '../../../hooks/useAlertStore'
 import useModalStore from '../../../hooks/useModalStore'
+// import { fetcher } from '../../../services/config'
 import { TaskService } from '../../../services/Task'
 import { ListTaskType } from '../../../types'
 
@@ -13,11 +20,17 @@ export const useTesting = () => {
 }
 
 export const useGetAllTasks = () => {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ['tasksService.getAllTasks'],
-    queryFn: async () => {
-      const response = await TaskService.getAllTasks()
-      return response
+    queryFn: async ({ pageParam }: { pageParam: number }) => {
+      const res = await TaskService.getAllTasks(pageParam)
+      return res
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPage) => {
+      console.log('Aaa', allPage)
+      if (lastPage.length === 0) return undefined
+      return lastPage.length + 10
     },
   })
 }
