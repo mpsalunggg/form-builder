@@ -54,3 +54,9 @@ export interface MenuType {
   title: string
   href: string
 }
+
+export interface FieldType {
+  id: string
+  label?: string
+  type?: string
+}

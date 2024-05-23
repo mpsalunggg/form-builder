@@ -12,7 +12,7 @@ const Menu: FC = () => {
           key={item.id}
           href={item.href}
           className={`text-white italic ${
-            location.pathname === item.href && 'text-black underline'
+            location.pathname === item.href && 'text-blue-900 underline'
           }`}
         >
           {item.title}
