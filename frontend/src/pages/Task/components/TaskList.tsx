@@ -43,7 +43,7 @@ const TaskList = () => {
 
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
-      {newData?.map((item: any, index: number) => {
+      {newData?.map((item: ListTaskType, index: number) => {
         if (index === newData?.length - 1) {
           return (
             <CardList
