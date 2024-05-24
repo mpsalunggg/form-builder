@@ -55,7 +55,7 @@ This project was created to fulfill the task of the recruitment process at the K
 - Finally
 
   ```
-  Server is Fire at http://localhost:8000
+  Server is Fire at http://localhost:8001
   ```
 
 **Frontend Setup**
@@ -88,7 +88,7 @@ This project was created to fulfill the task of the recruitment process at the K
 - Finally
 
   ```
-  Server is Fire at http://localhost:8000
+  Server running on port http://localhost:5173/ as default port
   ```
 
 ### Requirements Test
