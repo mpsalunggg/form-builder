@@ -25,8 +25,9 @@ export const getTasks = (req: Request, res: Response, next: NextFunction) => {
 
 export const createTask = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { title, description } = req.body
-    const newTask = createTaskService(title, description)
+    const { title, description, ...others } = req.body
+    console.log(others)
+    const newTask = createTaskService(title, description, others)
     res.status(201).json(ResponseApi(201, 'Task created!', newTask))
   } catch (error) {
     next(error)
@@ -36,8 +37,8 @@ export const createTask = (req: Request, res: Response, next: NextFunction) => {
 export const editTask = (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params
-    const { title, description } = req.body
-    const updatedTask = editTaskService(Number(id), title, description)
+    const { title, description, ...others } = req.body
+    const updatedTask = editTaskService(Number(id), title, description, others)
     res.status(200).json(ResponseApi(200, 'Task updated!', updatedTask))
   } catch (error) {
     next(error)

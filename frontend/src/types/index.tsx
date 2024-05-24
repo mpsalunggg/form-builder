@@ -18,6 +18,7 @@ export interface ListTaskType {
   id?: number
   title: string
   description: string
+  [key: string]: unknown
 }
 
 export interface ModalBodyProps {

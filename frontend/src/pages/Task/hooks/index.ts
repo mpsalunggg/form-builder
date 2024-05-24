@@ -27,8 +27,7 @@ export const useGetAllTasks = () => {
       return res
     },
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPage) => {
-      console.log('Aaa', allPage)
+    getNextPageParam: (lastPage) => {
       if (lastPage.length === 0) return undefined
       return lastPage.length + 10
     },

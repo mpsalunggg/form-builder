@@ -22,7 +22,8 @@ export const getAllTasksService = (
 
 export const createTaskService = (
   title: string,
-  description: string
+  description: string,
+  others: any
 ): TaskType => {
   if (!title || !description) {
     throw new ApiError('Title or description are required!', 400)
@@ -32,6 +33,7 @@ export const createTaskService = (
     id: randomId(),
     title,
     description,
+    ...others,
   }
 
   Tasks.unshift(newTask)
@@ -41,7 +43,8 @@ export const createTaskService = (
 export const editTaskService = (
   id: number,
   title: string,
-  description: string
+  description: string,
+  others: any
 ): TaskType => {
   const taskIdx = Tasks.findIndex((task) => task.id === id)
   if (taskIdx === -1) {
@@ -51,8 +54,12 @@ export const editTaskService = (
     throw new ApiError('Title or description are required!', 400)
   }
 
-  Tasks[taskIdx].title = title
-  Tasks[taskIdx].description = description
+  Tasks[taskIdx] = {
+    ...Tasks[taskIdx],
+    title,
+    description,
+    ...others,
+  }
 
   return Tasks[taskIdx]
 }

@@ -1,6 +1,6 @@
 import {
   DatePicker,
-  DefaultButton,
+  PrimaryButton,
   SpinButton,
   Stack,
   TextField,
@@ -10,6 +10,7 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import useModalStore from '../../../hooks/useModalStore'
 import ModalBody from './ModalBody'
 import { FieldType } from '../../../types'
+import { randomNumber } from '../../../helpers'
 
 const initialComponents = [
   { id: '1', type: 'TextField' },
@@ -36,7 +37,7 @@ const LayoutSetting: FC<{
       const newField = {
         ...initialComponents[source.index],
         id: `${Date.now()}`,
-        label: '',
+        label: `Field-${randomNumber()}`,
       }
       fields.splice(destination.index, 0, newField)
       openModal(
@@ -82,6 +83,7 @@ const LayoutSetting: FC<{
             label={field.label}
             placeholder={field.label}
             className="w-full"
+            disabled
           />
         )
       case 'DatePicker':
@@ -90,6 +92,7 @@ const LayoutSetting: FC<{
             label={field.label}
             placeholder={field.label}
             className="w-full"
+            disabled
           />
         )
       case 'SpinButton':
@@ -98,6 +101,7 @@ const LayoutSetting: FC<{
             label={field.label}
             labelPosition={0}
             className="w-full"
+            disabled
           />
         )
       default:
@@ -116,7 +120,7 @@ const LayoutSetting: FC<{
               className="w-full my-4 border-b"
             >
               <h1 className="text-blue-400 text-lg font-semibold">
-                Please select the input component for your form
+                Please drag the input component for your form
               </h1>
               <div className="w-full flex gap-2 justify-between my-4">
                 {initialComponents.map((component, index) => (
@@ -169,7 +173,7 @@ const LayoutSetting: FC<{
                 {!optionalFields.length ? (
                   <h1>Drop your optional input form</h1>
                 ) : (
-                  <div className="min-h-96 border">
+                  <div className="min-h-96 border border-gray-400">
                     {optionalFields.map((field, index) => (
                       <Draggable
                         key={field.id}
@@ -181,13 +185,13 @@ const LayoutSetting: FC<{
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            className="flex gap-2 justify-between items-end p-2 border border-gray-200 m-3"
+                            className="flex gap-2 justify-between items-end p-2 border bg-white border-gray-400 m-4"
                             style={{
                               ...provided.draggableProps.style,
                             }}
                           >
                             {renderField(field)}
-                            <DefaultButton
+                            <PrimaryButton
                               text="Remove"
                               onClick={() => removeField(field.id)}
                               className={`${

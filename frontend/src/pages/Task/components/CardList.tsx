@@ -16,6 +16,18 @@ const CardList: FC<CardListType> = ({
       <div>
         <h1 className="text-blue-400 text-xl">{item?.title}</h1>
         <div>{item?.description}</div>
+        <div>
+          {Object.entries(item).map(([key, value]) => {
+            if (key !== 'title' && key !== 'description' && key !== 'id') {
+              return (
+                <div key={key}>
+                  <strong>{key}:</strong> {value?.toString()}
+                </div>
+              )
+            }
+            return null
+          })}
+        </div>
       </div>
       <div>
         <Edit12Filled

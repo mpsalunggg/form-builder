@@ -2,6 +2,7 @@ export interface TaskType {
   id: number
   title: string
   description: string
+  [key: string]: unknown
 }
 
 // Sample Data

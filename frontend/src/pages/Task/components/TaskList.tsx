@@ -32,7 +32,6 @@ const TaskList = () => {
   useEffect(() => {
     if (isIntersecting && hasNextPage) {
       fetchNextPage()
-      console.log('testttt')
       observer.disconnect()
     }
   }, [isIntersecting, hasNextPage])
@@ -48,6 +47,7 @@ const TaskList = () => {
           return (
             <CardList
               item={item}
+              key={item.id}
               measureRef={measureRef}
               handleEditClick={handleEditClick}
               handleDeleteClick={handleDeleteClick}
@@ -57,6 +57,7 @@ const TaskList = () => {
         return (
           <CardList
             item={item}
+            key={item.id}
             handleEditClick={handleEditClick}
             handleDeleteClick={handleDeleteClick}
           />
