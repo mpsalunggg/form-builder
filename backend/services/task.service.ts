@@ -25,8 +25,8 @@ export const createTaskService = (
   description: string,
   others: any
 ): TaskType => {
-  if (!title || !description) {
-    throw new ApiError('Title or description are required!', 400)
+  if (!title) {
+    throw new ApiError('Title required!', 400)
   }
 
   const newTask: TaskType = {

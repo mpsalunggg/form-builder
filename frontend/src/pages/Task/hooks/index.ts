@@ -49,7 +49,8 @@ export const useCreateTask = () => {
       closeModal()
     },
     onError: (err: AxiosError) => {
-      console.log(err)
+      showAlert(err?.message, 'error', 3000)
+      closeModal()
     },
   })
 }
@@ -69,7 +70,8 @@ export const useEditTask = () => {
       closeModal()
     },
     onError: (err: AxiosError) => {
-      console.log(err)
+      showAlert(err?.message, 'error', 3000)
+      closeModal()
     },
   })
 }
@@ -88,7 +90,8 @@ export const useDeleteTask = () => {
       closeModal()
     },
     onError: (err: AxiosError) => {
-      console.log(err)
+      showAlert(err?.message, 'error', 3000)
+      closeModal()
     },
   })
 }

@@ -41,13 +41,6 @@ const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit' }) => {
       setTitleError('')
     }
 
-    if (!description) {
-      setDescriptionError('Description is required')
-      isValid = false
-    } else {
-      setDescriptionError('')
-    }
-
     return isValid
   }, [title, description])
 
@@ -137,15 +130,10 @@ const ModalBody: FC<ModalBodyProps> = ({ buttonText = 'Submit' }) => {
           label="Description"
           placeholder="Description"
           multiline
-          required
           value={description}
           onChange={(_, newValue) => {
             setDescription(newValue || '')
-            if (newValue) {
-              setDescriptionError('')
-            }
           }}
-          errorMessage={descriptionError}
         />
         {optionalFields.length !== 0 && (
           <>

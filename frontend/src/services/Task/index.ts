@@ -12,7 +12,7 @@ export const TaskService = {
       const res = await fetcher(GET_ALL_TASKS + `?pageSize=${pageSize}`)
       return res.data.data.tasks
     } catch (err: any) {
-      return err
+      throw new Error(err?.message)
     }
   },
   createTasks: async (
@@ -22,7 +22,7 @@ export const TaskService = {
       const res = await fetcher.post(TASK, data)
       return res.data
     } catch (err: any) {
-      return err
+      throw new Error(err?.message)
     }
   },
   editTasks: async (
@@ -33,7 +33,7 @@ export const TaskService = {
       const res = await fetcher.put(TASK + `/${id}`, data)
       return res.data
     } catch (err: any) {
-      return err
+      throw new Error(err?.message)
     }
   },
   deleteTask: async (id: number): Promise<BaseResponseType<ListTaskType>> => {
@@ -41,7 +41,7 @@ export const TaskService = {
       const res = await fetcher.delete(TASK + `/${id}`)
       return res.data
     } catch (err: any) {
-      return err
+      throw new Error(err?.message)
     }
   },
 }
