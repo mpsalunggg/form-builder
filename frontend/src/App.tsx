@@ -1,8 +1,15 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { BrowserRouter as Router } from 'react-router-dom'
+import AppRoutes from './routes'
+
+const queryClient = new QueryClient()
 function App() {
   return (
-    <>
-      <h1 className="text-blue-400 text-2xl">Test Tailwind CSS</h1>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </QueryClientProvider>
   )
 }
 
