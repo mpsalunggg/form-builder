@@ -1,7 +1,3 @@
-# Kitameraki Reqruitment Process
-
-This project was created to fulfill the task of the recruitment process at the Kitameraki company. This project is a Task Management application consisting of frontend and backend, and is equipped with a form builder that is used to create and manage forms dynamically.
-
 ## Table of Contents
 
 - [How To Run Project](#how-to-run-project)
