@@ -17,13 +17,13 @@
 - Clone this repository to your computer:
 
   ```
-  git clone https://github.com/mpsalunggg/kitameraki_reqruitment_putrasatria
+  git clone https://github.com/mpsalunggg/form-builder
   ```
 
 - Switch to the part_two branch to view the final project:
 
   ```
-  cd kitameraki_reqruitment_putrasatria
+  cd form-builder
   git checkout part_two
   ```
 
